@@ -14,4 +14,5 @@ public class ProductDTO {
     private String vendor;
     private Category category;
     private Double price;
+    private Integer inStock;
 }
