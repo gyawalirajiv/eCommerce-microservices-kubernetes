@@ -1,4 +1,4 @@
-package com.example.catalogservice.configs;
+package com.example.stockservice.configs;
 
 import com.example.commonsmodule.security.JwtTokenFilter;
 import com.example.commonsmodule.security.JwtTokenProvider;
@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,8 +30,7 @@ public class WebSecurityConfig {
                 .csrf().disable().httpBasic()
                 .and()
                 .authorizeRequests(req -> req
-                        .antMatchers(HttpMethod.POST, "/products").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/products").permitAll()
+                        .antMatchers("/stocks/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e
