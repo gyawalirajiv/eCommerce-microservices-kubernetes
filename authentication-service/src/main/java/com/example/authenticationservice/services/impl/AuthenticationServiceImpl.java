@@ -7,6 +7,7 @@ import com.example.authenticationservice.entities.User;
 import com.example.authenticationservice.repositories.UserRepository;
 import com.example.authenticationservice.services.AuthenticationService;
 import com.example.commonsmodule.security.JwtTokenProvider;
+import com.example.commonsmodule.security.enums.UserRole;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -24,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;;
-    private final ModelMapper modelMapper;;
+    private final ModelMapper modelMapper;
 
     @Override
     public TokenResponse login(UserLoginDTO payload) throws JsonProcessingException {
@@ -40,6 +43,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserDTO register(UserDTO payload) {
         User user = modelMapper.map(payload, User.class);
+//        user.setPassword(passwordEncoder.encode(payload.getPassword()));
+        user.setRoles(Set.of(UserRole.ROLE_USER));
         user = userRepository.save(user);
         user.setPassword(null);
         return modelMapper.map(user, UserDTO.class);

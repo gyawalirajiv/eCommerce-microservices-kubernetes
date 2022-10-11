@@ -4,6 +4,7 @@ import com.example.authenticationservice.services.OurUserDetailsService;
 import com.example.commonsmodule.security.JwtTokenFilter;
 import com.example.commonsmodule.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,9 +32,13 @@ public class WebSecurityConfig {
     @Value("${app.security.jwt.expiry}")
     private Long jwtExpiry;
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
     private final OurUserDetailsService ourUserDetailsService;
@@ -65,9 +71,15 @@ public class WebSecurityConfig {
                 .build();
     }
 
+    @Bean
     public JwtTokenProvider jwtTokenProvider(){
         JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(secret, jwtExpiry);
         return jwtTokenProvider;
+    }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 
 }
