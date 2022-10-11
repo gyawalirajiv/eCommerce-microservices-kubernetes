@@ -6,7 +6,9 @@ import com.example.catalogservice.entities.Product;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> findAll();
+    List<ProductDTO> findAll();
 
     ProductDTO save(ProductDTO payload);
+
+    ProductDTO find(Long id);
 }

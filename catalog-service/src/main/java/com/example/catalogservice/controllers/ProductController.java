@@ -16,8 +16,13 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAll(){
+    public List<ProductDTO> getAll(){
         return productService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ProductDTO get(@PathVariable Long id){
+        return productService.find(id);
     }
 
     @PostMapping
