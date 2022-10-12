@@ -1,11 +1,12 @@
 package com.example.stockservice.services;
 
+import com.example.commonsmodule.DTOs.ProductDTO;
 import com.example.stockservice.entities.DTOs.StockDTO;
 
 public interface StockService {
     Integer getStocksByProductId(Long productId);
 
-    StockDTO addToStock(Long productId, Integer amount);
+    StockDTO addToStock(ProductDTO productDTO);
 
-    StockDTO minusToStock(Long productId, Integer amount);
+    StockDTO minusToStock(ProductDTO productDTO);
 }

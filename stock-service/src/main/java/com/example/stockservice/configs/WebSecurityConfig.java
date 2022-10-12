@@ -30,7 +30,6 @@ public class WebSecurityConfig {
                 .csrf().disable().httpBasic()
                 .and()
                 .authorizeRequests(req -> req
-                        .antMatchers("/stocks/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e

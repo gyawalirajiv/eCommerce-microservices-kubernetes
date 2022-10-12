@@ -1,5 +1,6 @@
 package com.example.stockservice.controllers;
 
+import com.example.commonsmodule.DTOs.ProductDTO;
 import com.example.stockservice.entities.DTOs.StockDTO;
 import com.example.stockservice.services.StockService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,13 @@ public class StockController {
         return stockService.getStocksByProductId(productId);
     }
 
-    @PostMapping("/{productId}/add/{amount}")
-    public StockDTO addStocksByProductId(@PathVariable Long productId, @PathVariable Integer amount){
-        return stockService.addToStock(productId, amount);
+    @PostMapping
+    StockDTO addStock(@RequestBody ProductDTO product){
+        return stockService.addToStock(product);
     }
 
-    @PostMapping("/{productId}/minus/{amount}")
-    public StockDTO minusStocksByProductId(@PathVariable Long productId, @PathVariable Integer amount){
-        return stockService.minusToStock(productId, amount);
+    @PutMapping
+    public StockDTO reduceStock(@RequestBody ProductDTO productDTO){
+        return stockService.minusToStock(productDTO);
     }
 }
