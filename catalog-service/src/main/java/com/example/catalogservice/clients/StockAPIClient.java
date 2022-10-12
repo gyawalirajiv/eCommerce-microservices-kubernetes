@@ -1,21 +1,21 @@
 package com.example.catalogservice.clients;
 
+import com.example.catalogservice.entities.DTOs.ProductDTO;
+import com.example.catalogservice.entities.Product;
 import com.example.stockservice.entities.DTOs.StockDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "stock-service", url = "localhost:8081")
+@FeignClient(name = "stock-service", url = "localhost:8082")
 public interface StockAPIClient {
 
     @GetMapping("/stocks/{productId}")
     Integer getStocksByProductId(@PathVariable Long productId);
 
-    @PostMapping("/stocks/{productId}/add/{amount}")
-    StockDTO addStocksByProductId(@PathVariable Long productId, @PathVariable Integer amount);
+    @PostMapping("/stocks")
+    StockDTO addStock(@RequestBody ProductDTO product);
 
-    @PostMapping("/stocks/{productId}/minus/{amount}")
-    StockDTO minusStocksByProductId(@PathVariable Long productId, @PathVariable Integer amount);
+    @PutMapping("/stocks")
+    StockDTO reduceStock(@RequestBody ProductDTO productDTO);
 
 }

@@ -30,4 +30,9 @@ public class ProductController {
         return productService.save(payload);
     }
 
+    @PutMapping
+    public ProductDTO reduceStock(@RequestBody ProductDTO payload){
+        return productService.reduceStock(payload);
+    }
+
 }

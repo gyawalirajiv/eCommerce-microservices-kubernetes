@@ -33,6 +33,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests(req -> req
                         .antMatchers(HttpMethod.POST, "/products").hasRole("USER")
+                        .antMatchers(HttpMethod.PUT, "/products").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/products").permitAll()
                         .anyRequest().authenticated()
                 )

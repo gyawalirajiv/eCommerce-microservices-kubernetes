@@ -11,4 +11,6 @@ public interface ProductService {
     ProductDTO save(ProductDTO payload);
 
     ProductDTO find(Long id);
+
+    ProductDTO reduceStock(ProductDTO payload);
 }
