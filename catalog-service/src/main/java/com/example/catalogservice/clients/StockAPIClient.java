@@ -1,8 +1,7 @@
 package com.example.catalogservice.clients;
 
 import com.example.catalogservice.entities.DTOs.ProductDTO;
-import com.example.catalogservice.entities.Product;
-import com.example.stockservice.entities.DTOs.StockDTO;
+import com.example.commonsmodule.DTOs.StockDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
