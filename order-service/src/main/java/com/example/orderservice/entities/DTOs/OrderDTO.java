@@ -1,6 +1,6 @@
 package com.example.orderservice.entities.DTOs;
 
-import com.example.orderservice.entities.OrderItem;
+import com.example.shippingservice.entities.DTOs.ShippingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
-    private Long orderItemId;
-    private Long productId;
-    private Integer quantity;
+    private Long orderId;
+    private Long userId;
+    private Double totalAmount;
     private List<OrderItemDTO> orderItemList;
+    private ShippingDTO shippingDTO;
 }
