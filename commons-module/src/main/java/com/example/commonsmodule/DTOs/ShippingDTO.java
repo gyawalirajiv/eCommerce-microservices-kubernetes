@@ -1,4 +1,4 @@
-package com.example.shippingservice.entities.DTOs;
+package com.example.commonsmodule.DTOs;
 
 import lombok.Data;
 

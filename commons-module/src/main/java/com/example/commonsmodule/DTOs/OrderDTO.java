@@ -1,6 +1,5 @@
-package com.example.orderservice.entities.DTOs;
+package com.example.commonsmodule.DTOs;
 
-import com.example.shippingservice.entities.DTOs.ShippingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     private Long userId;
     private Double totalAmount;
