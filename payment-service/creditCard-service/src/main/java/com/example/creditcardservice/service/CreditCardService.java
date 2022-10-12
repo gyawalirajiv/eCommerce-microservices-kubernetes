@@ -1,4 +1,9 @@
 package com.example.creditcardservice.service;
 
-public class CreditCardService {
+import com.example.creditcardservice.dto.CreditCardDTO;
+
+public interface CreditCardService {
+
+    CreditCardDTO saveCreditCard(CreditCardDTO creditCardDTO);
+    boolean checkCreditCard(CreditCardDTO creditCardDTO);
 }
