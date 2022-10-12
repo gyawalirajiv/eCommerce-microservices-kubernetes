@@ -1,24 +1,20 @@
 package com.example.orderservice.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@Accessors(chain = true)
+@Data
 @NoArgsConstructor
-public class Order {
+@AllArgsConstructor
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     private Long userId;
     private Double totalAmount;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItem> orderItemList;
 }

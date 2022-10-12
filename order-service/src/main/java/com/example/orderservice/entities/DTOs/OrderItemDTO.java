@@ -1,6 +1,5 @@
 package com.example.orderservice.entities.DTOs;
 
-import com.example.orderservice.entities.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
