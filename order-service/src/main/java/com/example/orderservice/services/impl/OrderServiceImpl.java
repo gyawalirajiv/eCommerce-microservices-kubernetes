@@ -1,5 +1,6 @@
 package com.example.orderservice.services.impl;
 
+import com.example.commonsmodule.security.CommonSecurityUtils;
 import com.example.orderservice.clients.CatalogAPIClient;
 import com.example.orderservice.entities.DTOs.OrderDTO;
 import com.example.orderservice.entities.DTOs.OrderItemDTO;
@@ -26,8 +27,8 @@ public class OrderServiceImpl implements OrderService {
     private final CatalogAPIClient catalogAPIClient;
 
     @Override
-    public List<OrderDTO> getAllOrder(Long userId) {
-        List<Order> orders = orderRepository.findAllByUserId(userId);
+    public List<OrderDTO> getAllOrder() {
+        List<Order> orders = orderRepository.findAllByUserId(CommonSecurityUtils.getCurrentUserId().get());
         List<OrderDTO> orderDTOS = orders.stream().map(o -> modelMapper.map(o, OrderDTO.class)).collect(Collectors.toList());
         return orderDTOS;
     }
@@ -35,8 +36,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO makeOrder(OrderDTO orderDTO) {
         Order order = modelMapper.map(orderDTO, Order.class);
-        Double totalAmount = 0.0;
-        Long userId = 1L;
+        double totalAmount = 0.0;
 
         for (OrderItem orderItem : order.getOrderItemList()) {
             Double price = catalogAPIClient.getProductPriceByProductId(orderItem.getProductId());
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
         // TODO:  check if payment is successful or not if success then only make order otherwise not
 
-        order.setUserId(userId);
+        order.setUserId(CommonSecurityUtils.getCurrentUserId().get());
         order.setTotalAmount(totalAmount);
         orderRepository.save(order);
         return modelMapper.map(order, OrderDTO.class);

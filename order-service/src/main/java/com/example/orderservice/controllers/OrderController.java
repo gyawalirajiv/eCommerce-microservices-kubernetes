@@ -27,8 +27,7 @@ public class OrderController {
 
     @GetMapping
     ResponseEntity<List<OrderDTO>> getAllOrderItem() {
-        Long userId = 1L;
-        List<OrderDTO> orderDTOSuccess = orderService.getAllOrder(userId);
+        List<OrderDTO> orderDTOSuccess = orderService.getAllOrder();
         return new ResponseEntity<>(orderDTOSuccess, HttpStatus.OK);
     }
 }
