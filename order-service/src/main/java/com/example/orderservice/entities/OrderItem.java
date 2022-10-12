@@ -1,17 +1,13 @@
 package com.example.orderservice.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@Accessors(chain = true)
+@AllArgsConstructor
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +15,5 @@ public class OrderItem {
     private Long productId;
     private Integer quantity;
     @ManyToOne
-    private Order order;
+    private Orders orders;
 }
