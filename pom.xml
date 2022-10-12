@@ -16,6 +16,7 @@
         <module>stock-service</module>
         <module>order-service</module>
         <module>shipping-service</module>
+        <module>payment-service</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
