@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mapper {
     public PaypalDTO mapToDto(Paypal paypal){
-        PaypalDTO paypalDto= PaypalDTO.builder().firstName(paypal.getFirstName())
+        PaypalDTO paypalDto= PaypalDTO.builder()
+                .firstName(paypal.getFirstName())
                 .lastName(paypal.getLastName())
                 .balance(paypal.getBalance())
                 .emailAddress(paypal.getEmailAddress())
