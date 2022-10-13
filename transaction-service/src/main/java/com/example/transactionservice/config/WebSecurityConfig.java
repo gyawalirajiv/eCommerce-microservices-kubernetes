@@ -1,4 +1,4 @@
-package com.example.orderservice.configs;
+package com.example.transactionservice.config;
 
 import com.example.commonsmodule.security.JwtTokenFilter;
 import com.example.commonsmodule.security.JwtTokenProvider;
@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class WebSecurityConfig {
     @Value("${app.security.jwt.secret}")
     private String secret;
+
     @Value("${app.security.jwt.expiry}")
     private Long jwtExpiry;
 
@@ -27,11 +29,10 @@ public class WebSecurityConfig {
                 .csrf().disable().httpBasic()
                 .and()
                 .authorizeRequests(
-                        req -> req
-                                .anyRequest().authenticated()
+                        req -> req.anyRequest().authenticated()
                 )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint((request, response, authException) ->
+                .exceptionHandling(
+                        e -> e.authenticationEntryPoint((request, response, authException) ->
                                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())
                         ))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

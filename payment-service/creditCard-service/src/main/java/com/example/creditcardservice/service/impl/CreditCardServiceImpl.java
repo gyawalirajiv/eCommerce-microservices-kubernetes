@@ -5,12 +5,14 @@ import com.example.creditcardservice.dto.mapper.Mapper;
 import com.example.creditcardservice.entities.Creditcard;
 import com.example.creditcardservice.repository.CreditcardRepository;
 import com.example.creditcardservice.service.CreditCardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
 @Service
+@RequiredArgsConstructor
 public class CreditCardServiceImpl implements CreditCardService {
 
     @Autowired
@@ -22,15 +24,19 @@ public class CreditCardServiceImpl implements CreditCardService {
     @Override
     public CreditCardDTO saveCreditCard(CreditCardDTO creditCardDTO) {
         Creditcard creditcard = mapper.mapToCreditcard(creditCardDTO);
+        creditcard.setBalance(creditCardDTO.getBalance());
+        creditcard.setExpiryDate(creditCardDTO.getExpiryDate());
+        creditcard.setCardLimit(creditCardDTO.getCardLimit());
         creditcardRepository.save(creditcard);
         creditCardDTO.setExpiryDate(creditcard.getExpiryDate());
         creditCardDTO.setCardLimit(creditcard.getCardLimit());
+        creditCardDTO.setBalance(creditcard.getBalance());
         return creditCardDTO;
     }
 
     @Override
     public boolean checkCreditCard(CreditCardDTO creditCardDTO) {
-        Optional<Creditcard> creditcardOptional = creditcardRepository.findCreditcardByCardNumberAndExpiryDateAndCcv(creditCardDTO.getCardNumber(), creditCardDTO.getExpiryDate(), creditCardDTO.getCcv());
+        Optional<Creditcard> creditcardOptional = creditcardRepository.findCreditcardByCardNumberAndCcv(creditCardDTO.getCardNumber(), creditCardDTO.getCcv());
         if (!validateCreditcard(creditcardOptional, creditCardDTO)) return false;
         return updateChanges(creditcardOptional.get(), creditCardDTO);
     }

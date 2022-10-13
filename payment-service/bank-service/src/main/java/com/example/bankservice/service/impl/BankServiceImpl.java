@@ -6,6 +6,7 @@ import com.example.bankservice.dto.mapper.Mapper;
 import com.example.bankservice.entities.Bank;
 import com.example.bankservice.repository.BankRepository;
 import com.example.bankservice.service.BankService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BankServiceImpl implements BankService {
 
     @Autowired

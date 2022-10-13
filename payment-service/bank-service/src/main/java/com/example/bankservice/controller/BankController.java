@@ -19,7 +19,7 @@ public class BankController {
         return response;
     }
 
-    @PutMapping("/verify-purchase")
+    @PutMapping("/payment-verification")
     public ResponseEntity<?> checkBankAccount(@RequestBody BankDTO bankDTO) {
         ResponseEntity<?> response = new ResponseEntity<>(bankService.checkBankAccount(bankDTO), HttpStatus.OK);
         return response;
