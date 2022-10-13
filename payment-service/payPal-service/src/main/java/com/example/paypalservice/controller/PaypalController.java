@@ -1,6 +1,6 @@
 package com.example.paypalservice.controller;
 
-import com.example.paypalservice.dto.PaypalDto;
+import com.example.paypalservice.dto.PaypalDTO;
 import com.example.paypalservice.service.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +14,12 @@ public class PaypalController {
     private PaypalService paypalService;
 
     @PostMapping
-    public ResponseEntity<?> savePaypal(@RequestBody PaypalDto paypalDto){
+    public ResponseEntity<?> savePaypal(@RequestBody PaypalDTO paypalDto){
         return new ResponseEntity<>(paypalService.checkPaypal(paypalDto), HttpStatus.OK);
     }
 
-    @PutMapping("verify-purchase")
-    public ResponseEntity<?> checkPaypal(@RequestBody PaypalDto paypalDto){
+    @PutMapping("payment-verification")
+    public ResponseEntity<?> checkPaypal(@RequestBody PaypalDTO paypalDto){
         return new ResponseEntity<>(paypalService.checkPaypal(paypalDto),HttpStatus.OK);
     }
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PaypalDto {
+public class PaypalDTO {
     private Integer id;
     private String firstName;
     private String lastName;

@@ -22,7 +22,7 @@ public class CreditCardController {
         return  response;
     }
 
-    @PostMapping("/verify-purchase")
+    @PostMapping("/payment-verification")
     public  ResponseEntity<?> checkCreditCard(@RequestBody CreditCardDTO creditCardDTO){
         ResponseEntity<?> response=new ResponseEntity<>(creditCardService.checkCreditCard(creditCardDTO),HttpStatus.OK);
         return  response;

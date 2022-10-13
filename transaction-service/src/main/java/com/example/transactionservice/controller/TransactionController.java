@@ -1,6 +1,6 @@
 package com.example.transactionservice.controller;
 
-import com.example.transactionservice.dto.TransactionDto;
+import com.example.transactionservice.dto.TransactionDTO;
 import com.example.transactionservice.entities.Transaction;
 import com.example.transactionservice.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,9 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @PostMapping("create-transaction")
+    @PostMapping
     public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
-        TransactionDto transactionDto = transactionService.saveTransaction(transaction);
+        TransactionDTO transactionDto = transactionService.saveTransaction(transaction);
         return new ResponseEntity<>(transactionDto, HttpStatus.OK);
     }
 }

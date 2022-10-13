@@ -1,15 +1,13 @@
 package com.example.paypalservice.dto.mapper;
 
-import com.example.paypalservice.dto.PaypalDto;
+import com.example.paypalservice.dto.PaypalDTO;
 import com.example.paypalservice.entity.Paypal;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class Mapper {
-    public PaypalDto mapToDto(Paypal paypal){
-        PaypalDto paypalDto=PaypalDto.builder().firstName(paypal.getFirstName())
+    public PaypalDTO mapToDto(Paypal paypal){
+        PaypalDTO paypalDto= PaypalDTO.builder().firstName(paypal.getFirstName())
                 .lastName(paypal.getLastName())
                 .balance(paypal.getBalance())
                 .emailAddress(paypal.getEmailAddress())
@@ -18,7 +16,7 @@ public class Mapper {
         return paypalDto;
     }
 
-   public Paypal mapToPaypal(PaypalDto paypalDto){
+   public Paypal mapToPaypal(PaypalDTO paypalDto){
         Paypal paypal=Paypal.builder()
                 .firstName(paypalDto.getFirstName())
                 .lastName(paypalDto.getLastName())

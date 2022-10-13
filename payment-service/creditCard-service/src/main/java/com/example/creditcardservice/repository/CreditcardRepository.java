@@ -7,5 +7,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface CreditcardRepository extends JpaRepository<Creditcard, Long> {
-    Optional<Creditcard> findCreditcardByCardNumberAndExpiryDateAndCcv(String cardNumber, LocalDate expiryDate, String ccv);
+//    Optional<Creditcard> findCreditcardByCardNumberAndExpiryDateAndCcv(String cardNumber, LocalDate expiryDate, String ccv);
+    Optional<Creditcard> findCreditcardByCardNumberAndCcv(String cardNumber, String ccv);
 }

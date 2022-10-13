@@ -1,5 +1,6 @@
 package com.example.orderservice.entities;
 
+import com.example.orderservice.entities.enums.PaymentType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,9 @@ public class Orders {
     private Long orderId;
     private Long userId;
     private Double totalAmount;
+    private Long accountId;
+    @Enumerated
+    private PaymentType paymentType;
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItem> orderItemList;
 }
