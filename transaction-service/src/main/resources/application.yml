@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shipping-service
+    name: transaction-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/swa?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
@@ -12,14 +12,14 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 management:
   endpoints:
     web:
       exposure:
         include: "*"
 server:
-  port: 8090
+  port: 8088
 
 app:
   security:

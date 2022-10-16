@@ -21,7 +21,8 @@ public class ShippingServiceImpl implements ShippingService {
     @Override
     public ShippingDTO shipping(OrderDTO orderDTO) {
         Shipping shipping = modelMapper.map(orderDTO.getShippingDTO(), Shipping.class);
-        shipping.setUserId(CommonSecurityUtils.getCurrentUserId().get());
+        shipping.setUserId(orderDTO.getUserId());
+        shipping.setOrderId(orderDTO.getOrderId());
         shipping.setStAddress(orderDTO.getShippingDTO().getStAddress());
         shipping.setCity(orderDTO.getShippingDTO().getCity());
         shipping.setState(orderDTO.getShippingDTO().getState());
