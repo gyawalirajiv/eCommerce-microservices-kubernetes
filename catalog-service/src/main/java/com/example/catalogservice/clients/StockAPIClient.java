@@ -5,7 +5,7 @@ import com.example.commonsmodule.DTOs.StockDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "stock-service", url = "localhost:8082")
+@FeignClient(name = "stock-service", url = "${app.stock-service-url}")
 public interface StockAPIClient {
 
     @GetMapping("/stocks/{productId}")

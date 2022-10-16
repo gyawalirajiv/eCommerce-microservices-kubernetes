@@ -1,10 +1,7 @@
 package com.example.orderservice.services.impl;
 
-import com.example.bankservice.dto.BankDTO;
-import com.example.commonsmodule.DTOs.ProductDTO;
-import com.example.commonsmodule.DTOs.ShippingDTO;
+import com.example.commonsmodule.DTOs.*;
 import com.example.commonsmodule.security.CommonSecurityUtils;
-import com.example.creditcardservice.dto.CreditCardDTO;
 import com.example.orderservice.clients.*;
 import com.example.orderservice.entities.DTOs.OrderDTO;
 import com.example.orderservice.entities.Orders;
@@ -12,8 +9,6 @@ import com.example.orderservice.entities.OrderItem;
 import com.example.orderservice.entities.enums.PaymentType;
 import com.example.orderservice.repositories.OrderRepository;
 import com.example.orderservice.services.OrderService;
-import com.example.paypalservice.dto.PaypalDTO;
-import com.example.transactionservice.dto.TransactionDTO;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.query.criteria.internal.expression.function.CurrentTimeFunction;
 import org.modelmapper.ModelMapper;

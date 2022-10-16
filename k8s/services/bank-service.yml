@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-service
+spec:
+  selector:
+    app: bank-service
+  ports:
+    - port: 80
+      nodePort: 30084 # exposing to local, to access this service
+      targetPort: 8084
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank-service
+  template:
+    metadata:
+      labels:
+        app: bank-service
+    spec:
+      containers:
+        - name: bank-service
+          image: gyawalirajiv/swa-bank-service
+          ports:
+            - containerPort: 8084
+          env:
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-configs
+                  key: bankaccount_mysqlURL
+
+            - name: MYSQL_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-configs
+                  key: bankaccount_dbName
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: jwt-secret-key
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: password
+          imagePullPolicy: IfNotPresent

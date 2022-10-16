@@ -3,9 +3,9 @@ spring:
     name: order-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/swa?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: password
+    url: jdbc:mysql://${MYSQL_URL:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:swa}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:password}
     hikari:
       initialization-fail-timeout: 0
   jpa:
@@ -26,3 +26,9 @@ app:
     jwt:
       secret: secret
       expiry: 100000
+  bank-service-url: ${BANK_SERVICE_URL:localhost:8084}
+  paypal-service-url: ${PAYPAL_SERVICE_URL:localhost:8086}
+  creditcard-service-url: ${CREDITCARD_SERVICE_URL:localhost:8085}
+  shipping-service-url: ${SHIPPING_SERVICE_URL:localhost:8087}
+  catalog-service-url: ${CATALOG_SERVICE_URL:localhost:8081}
+  transaction-service-url: ${TRANSACTION_SERVICE_URL:localhost:8088}

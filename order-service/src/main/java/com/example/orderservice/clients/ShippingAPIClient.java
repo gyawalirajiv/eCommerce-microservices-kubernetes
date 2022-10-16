@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "shipping-service", url = "localhost:8087")
+@FeignClient(name = "shipping-service", url = "${app.shipping-service-url}")
 public interface ShippingAPIClient {
     @PostMapping("/shippings/")
     ShippingDTO shipping(@RequestBody OrderDTO orderDTO);

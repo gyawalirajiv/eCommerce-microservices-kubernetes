@@ -1,10 +1,10 @@
 package com.example.orderservice.entities.DTOs;
 
-import com.example.bankservice.dto.BankDTO;
+import com.example.commonsmodule.DTOs.BankDTO;
+import com.example.commonsmodule.DTOs.CreditCardDTO;
+import com.example.commonsmodule.DTOs.PaypalDTO;
 import com.example.commonsmodule.DTOs.ShippingDTO;
-import com.example.creditcardservice.dto.CreditCardDTO;
 import com.example.orderservice.entities.enums.PaymentType;
-import com.example.paypalservice.dto.PaypalDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;

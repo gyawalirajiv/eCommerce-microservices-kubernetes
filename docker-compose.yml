@@ -1,0 +1,184 @@
+version: '3.9'
+
+services:
+  docker-mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 50s
+      retries: 3
+    restart: on-failure
+    volumes:
+      - docker_mysql:/var/lib/mysql
+
+
+  authentication-service:
+    container_name: authentication_service
+    image: gyawalirajiv/swa-authentication-service
+    ports:
+      - 8080:8080
+    build:
+      context: ./authentication-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+
+  catalog-service:
+    container_name: catalog_service
+    image: gyawalirajiv/swa-catalog-service
+    ports:
+      - 8081:8081
+    build:
+      context: ./catalog-service
+      dockerfile: Dockerfile
+    environment:
+      STOCK_SERVICE_URL: stock-service
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  stock-service:
+    container_name: stock_service
+    image: gyawalirajiv/swa-stock-service
+    ports:
+      - 8082:8082
+    build:
+      context: ./stock-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  order-service:
+    container_name: order_service
+    image: gyawalirajiv/swa-order-service
+    ports:
+      - 8083:8083
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  bank-service:
+    container_name: bank_service
+    image: gyawalirajiv/swa-bank-service
+    ports:
+      - 8084:8084
+    build:
+      context: ./payment-service/bank-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  creditCard-service:
+    container_name: creditCard_service
+    image: gyawalirajiv/swa-creditcard-service
+    ports:
+      - 8085:8085
+    build:
+      context: ./payment-service/creditCard-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  payPal-service:
+    container_name: payPal_service
+    image: gyawalirajiv/swa-paypal-service
+    ports:
+      - 8086:8086
+    build:
+      context: ./payment-service/payPal-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  shipping-service:
+    container_name: shipping_service
+    image: gyawalirajiv/swa-shipping-service
+    ports:
+      - 8087:8087
+    build:
+      context: ./shipping-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  transaction-service:
+    container_name: transaction_service
+    image: gyawalirajiv/swa-transaction-service
+    ports:
+      - 8088:8088
+    build:
+      context: ./transaction-service
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_URL: docker-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: swa
+      MYSQL_PORT: 3306
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+volumes:
+  docker_mysql:

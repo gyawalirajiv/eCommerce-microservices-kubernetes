@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: paypal-service
+spec:
+  selector:
+    app: paypal-service
+  ports:
+    - port: 80
+      nodePort: 30086 # exposing to local, to access this service
+      targetPort: 8086
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paypal-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paypal-service
+  template:
+    metadata:
+      labels:
+        app: paypal-service
+    spec:
+      containers:
+        - name: paypal-service
+          image: gyawalirajiv/swa-paypal-service
+          ports:
+            - containerPort: 8086
+          env:
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-configs
+                  key: paypal_mysqlURL
+
+            - name: MYSQL_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-configs
+                  key: paypal_dbName
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: jwt-secret-key
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: password
+          imagePullPolicy: IfNotPresent
