@@ -1,63 +1,47 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-service
+  name: creditcard-service
 spec:
   selector:
-    app: order-service
+    app: creditcard-service
   ports:
     - port: 80
-      nodePort: 30083 # exposing to local, to access this service
-      targetPort: 8083
+      nodePort: 30085 # exposing to local, to access this service
+      targetPort: 8085
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-service
+  name: creditcard-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: order-service
+      app: creditcard-service
   template:
     metadata:
       labels:
-        app: order-service
+        app: creditcard-service
     spec:
       containers:
-        - name: order-service
-          image: gyawalirajiv/swa-order-service
+        - name: creditcard-service
+          image: gyawalirajiv/swa-creditcard-service
           ports:
-            - containerPort: 8083
+            - containerPort: 8085
           env:
-            - name: PRODUCT_SERVICE_URL
-              value: product-service
-            - name: ACCOUNT_SERVICE_URL
-              value: account-service
-            - name: BANK_SERVICE_URL
-              value: bank-service
-            - name: CREDIT_SERVICE_URL
-              value: credit-service
-            - name: PAYPAL_SERVICE_URL
-              value: paypal-service
-            - name: STOCK_SERVICE_URL
-              value: stock-service
-            - name: SHIPPING_SERVICE_URL
-              value: shipping-service
-            - name: TRANSACTION_SERVICE_URL
-              value: transaction-service
             - name: MYSQL_URL
               valueFrom:
                 configMapKeyRef:
                   name: database-configs
-                  key: order_mysqlURL
+                  key: credit_mysqlURL
 
             - name: MYSQL_DB_NAME
               valueFrom:
                 configMapKeyRef:
                   name: database-configs
-                  key: order_dbName
+                  key: credit_dbName
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
