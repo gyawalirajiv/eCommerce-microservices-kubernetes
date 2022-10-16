@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     app: authentication-app
-    ports:
-      - port: 80
-        nodePort: 30070
-        targetPort: 8080
-    type: NodePort
+  ports:
+    - port: 80
+      nodePort: 30070
+      targetPort: 8080
+  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,11 +28,13 @@ spec:
       containers:
         - name: authentication-app
           image: gyawalirajiv/swa-authentication-service
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              values: prod
+              value: prod
+
             - name: MYSQL_URL
               valueFrom:
                 configMapKeyRef:
@@ -47,19 +49,18 @@ spec:
 
             - name: JWT_SECRET_KEY
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: app-secret
-                  key: secret
+                  key: jwt-secret-key
 
             - name: MYSQL_USERNAME
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: database-secret
-                  key: root
+                  key: username
 
             - name: MYSQL_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: database-secret
                   key: password
-          imagePullPolicy: Never
