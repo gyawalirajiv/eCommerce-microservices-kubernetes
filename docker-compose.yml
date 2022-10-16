@@ -18,7 +18,7 @@ services:
 
   authentication-service:
     container_name: authentication_service
-    image: authentication_service
+    image: gyawalirajiv/swa-authentication-service
     ports:
       - 8080:8080
     build:
@@ -37,7 +37,7 @@ services:
 
   catalog-service:
     container_name: catalog_service
-    image: catalog_service
+    image: gyawalirajiv/swa-catalog-service
     ports:
       - 8081:8081
     build:
@@ -56,7 +56,7 @@ services:
 
   stock-service:
     container_name: stock_service
-    image: stock_service
+    image: gyawalirajiv/swa-stock-service
     ports:
       - 8082:8082
     build:
