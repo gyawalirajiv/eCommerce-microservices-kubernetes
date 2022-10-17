@@ -4,17 +4,17 @@
  `minikube and docker should be installed in the testing system.`
 
 #### Start the minikube server with the following codes in the terminal
-    `minikube start`
+`minikube start`
 
 #### Run the configuration of the kubernetes with the following codes from the root folder of the project.
-    `kubectl create -f k8s/config-secrets`
-    `kubectl create -f k8s/appcore`
+`kubectl create -f k8s/config-secrets`  
+`kubectl create -f k8s/appcore`
 
 #### Run The microservices from the follwoing codes
-    `kubectl create -f k8s/services`
+`kubectl create -f k8s/services`
 
 #### For tunneling the APIs run the following code
-    `minikube services --all`
+`minikube services --all`
 
 ### Using POSTMAN make requests as shown below  
 #### Make requests to the authentication server for registration  with the following payloads
